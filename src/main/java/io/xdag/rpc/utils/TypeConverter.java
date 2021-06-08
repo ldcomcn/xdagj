@@ -96,10 +96,6 @@ public class TypeConverter {
         return "0x" + Long.toHexString(n);
     }
 
-    public static String toQuantityJsonHex(double n) {
-        return "" + n;
-    }
-
     /**
      * @return A Hex representation of n WITHOUT leading zeroes
      */

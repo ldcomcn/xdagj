@@ -24,9 +24,13 @@
 package io.xdag.rpc.modules.xdag;
 
 import io.xdag.rpc.dto.BlockResultDTO;
+import io.xdag.rpc.dto.StatusDTO;
 
 public interface XdagModuleChain {
+    Object syncing();
     String getCoinBase();
     BlockResultDTO getBlockByHash(String hash, boolean full);
     BlockResultDTO getBlockByNumber(String bnOrId, boolean full);
+    StatusDTO getStatus();
+    String getBalance(String address);
 }

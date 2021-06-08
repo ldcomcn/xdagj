@@ -81,6 +81,9 @@ import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static io.xdag.config.Constants.CHAIN_ID;
+import static io.xdag.config.Constants.CLIENT_VERSION;
+
 
 @Slf4j
 @Getter
@@ -325,7 +328,7 @@ public class Kernel {
     }
 
     private Web3 buildWeb3() {
-        Web3XdagModule web3XdagModule = new Web3XdagModuleImpl(new XdagModule((byte) 0x1,new XdagModuleWalletDisabled(),new XdagModuleTransactionEnabled(this.getBlockchain())),this);
+        Web3XdagModule web3XdagModule = new Web3XdagModuleImpl(new XdagModule(this),CLIENT_VERSION,CHAIN_ID);
         return new Web3Impl(web3XdagModule);
     }
 

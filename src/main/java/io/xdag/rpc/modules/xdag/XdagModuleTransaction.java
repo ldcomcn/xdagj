@@ -24,9 +24,10 @@
 package io.xdag.rpc.modules.xdag;
 
 import io.xdag.rpc.Web3;
+import io.xdag.rpc.dto.TransactionReceiptDTO;
 
 public interface XdagModuleTransaction {
-    String sendTransaction(Web3.CallArguments args);
+    TransactionReceiptDTO sendTransaction(Web3.CallArguments args);
 
-    String sendRawTransaction(String rawData);
+    TransactionReceiptDTO sendRawTransaction(String rawData);
 }

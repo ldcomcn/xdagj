@@ -23,8 +23,23 @@
  */
 package io.xdag.rpc.dto;
 
+import io.xdag.core.ImportResult;
+import lombok.Data;
+
+import static io.xdag.rpc.utils.TypeConverter.toUnformattedJsonHex;
+
 // TODO: return transaction receipt
+@Data
 public class TransactionReceiptDTO {
 
+    private final String transactionHash;
+    private final String stats;
+
+
+    public TransactionReceiptDTO(byte[] transactionHash, ImportResult stats) {
+        this.transactionHash = toUnformattedJsonHex(transactionHash);
+        this.stats = stats.toString();
+    }
 
 }
+

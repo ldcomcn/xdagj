@@ -23,6 +23,7 @@
  */
 package io.xdag.rpc.dto;
 
+import io.xdag.core.XdagStats;
 import lombok.Data;
 
 import java.math.BigInteger;
@@ -34,16 +35,22 @@ import static io.xdag.rpc.utils.TypeConverter.toQuantityJsonHex;
 public class StatusDTO {
     // status 状态信息
     private final String nblocks;
+    private final String tNblocks;
     private final String nmain;
+    private final String tNmain;
     private final String diff;
+    private final String tDiff;
     private final String supply;
 
-    public StatusDTO(long nblocks, long nmain, BigInteger diff, double supply) {
+    public StatusDTO(long nblocks, long nmain, BigInteger diff,
+                     long tNblocks, long tNmain, BigInteger tDiff,long supply) {
         this.nblocks = toQuantityJsonHex(nblocks);
+        this.tNblocks = toQuantityJsonHex(tNblocks);
         this.nmain = toQuantityJsonHex(nmain);
+        this.tNmain = toQuantityJsonHex(tNmain);
         this.diff = toQuantityJsonHex(diff);
+        this.tDiff = toQuantityJsonHex(tDiff);
         this.supply = toQuantityJsonHex(supply);
     }
-
 
 }

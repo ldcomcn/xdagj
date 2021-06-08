@@ -24,6 +24,7 @@
 package io.xdag.rpc.modules.xdag;
 
 import io.xdag.core.Blockchain;
+import io.xdag.rpc.dto.TransactionReceiptDTO;
 
 public class XdagModuleTransactionEnabled extends XdagModuleTransactionBase{
 
@@ -32,8 +33,7 @@ public class XdagModuleTransactionEnabled extends XdagModuleTransactionBase{
     }
 
     @Override
-    public String sendRawTransaction(String rawData) {
-        String result = super.sendRawTransaction(rawData);
-        return result;
+    public TransactionReceiptDTO sendRawTransaction(String rawData) {
+        return super.sendRawTransaction(rawData);
     }
 }

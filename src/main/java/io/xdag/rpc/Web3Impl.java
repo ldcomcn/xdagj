@@ -23,8 +23,6 @@
  */
 package io.xdag.rpc;
 
-import io.xdag.rpc.dto.BlockResultDTO;
-import io.xdag.rpc.dto.StatusDTO;
 import io.xdag.rpc.modules.web3.Web3XdagModule;
 import io.xdag.rpc.modules.xdag.XdagModule;
 
@@ -128,6 +126,14 @@ public class Web3Impl implements Web3{
         return null;
     }
 
+    // ====================================
+    // XDAG module
+    // ====================================
+    @Override
+    public String xdag_chainId() {
+        return web3XdagModule.xdag_chainId();
+    }
+
     @Override
     public XdagModule getXdagModule() {
         return web3XdagModule.getXdagModule();
@@ -138,43 +144,4 @@ public class Web3Impl implements Web3{
         return web3XdagModule.xdag_protocolVersion();
     }
 
-    @Override
-    public Object xdag_syncing() {
-        return web3XdagModule.xdag_syncing();
-    }
-
-    @Override
-    public String xdag_coinbase() {
-        return web3XdagModule.xdag_coinbase();
-    }
-
-    @Override
-    public String xdag_blockNumber() {
-        return web3XdagModule.xdag_blockNumber();
-    }
-
-    @Override
-    public String xdag_getBalance(String address) throws Exception {
-        return web3XdagModule.xdag_getBalance(address);
-    }
-
-    @Override
-    public String xdag_getTotalBalance() throws Exception {
-        return web3XdagModule.xdag_getTotalBalance();
-    }
-
-    @Override
-    public BlockResultDTO xdag_getBlockByNumber(String bnOrId, Boolean full) throws Exception {
-        return web3XdagModule.xdag_getBlockByNumber(bnOrId,full);
-    }
-
-    @Override
-    public BlockResultDTO xdag_getBlockByHash(String blockHash, Boolean full) throws Exception {
-        return web3XdagModule.xdag_getBlockByHash(blockHash,full);
-    }
-
-    @Override
-    public StatusDTO xdag_getStatus() throws Exception {
-        return web3XdagModule.xdag_getStatus();
-    }
 }

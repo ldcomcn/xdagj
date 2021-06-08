@@ -26,10 +26,18 @@ package io.xdag.rpc.modules.web3;
 import io.xdag.rpc.Web3;
 import io.xdag.rpc.dto.BlockResultDTO;
 import io.xdag.rpc.dto.StatusDTO;
+import io.xdag.rpc.dto.TransactionDTO;
+import io.xdag.rpc.dto.TransactionReceiptDTO;
 import io.xdag.rpc.modules.xdag.XdagModule;
 
 
 public interface Web3XdagModule {
+
+    String xdag_chainId();
+
+    XdagModule getXdagModule();
+
+    String xdag_protocolVersion();
 
     default String[] xdag_accounts() {
         return getXdagModule().accounts();
@@ -39,40 +47,48 @@ public interface Web3XdagModule {
         return getXdagModule().sign(addr, data);
     }
 
-    default String xdag_chainId() {
-        return getXdagModule().chainId();
+    default Object xdag_syncing(){
+        return getXdagModule().syncing();
     }
 
-
-    XdagModule getXdagModule();
-
-    String xdag_protocolVersion();
-
-    Object xdag_syncing();
-
-    String xdag_coinbase();
-
-    String xdag_blockNumber();
-
-    String xdag_getBalance(String address) throws Exception;
-
-    String xdag_getTotalBalance() throws Exception;
-
-    default BlockResultDTO xdag_getTransactionByHash(String hash, Boolean full)throws Exception{
-        return xdag_getBlockByHash(hash,full);
+    default String xdag_coinbase() {
+        return getXdagModule().getCoinBase();
     }
 
-    BlockResultDTO xdag_getBlockByNumber(String bnOrId, Boolean full) throws Exception;
+    default String xdag_blockNumber() {
+        return getXdagModule().getStatus().getNblocks();
+    }
+
+    default String xdag_getBalance(String address) throws Exception {
+        return getXdagModule().getBalance(address);
+    }
+
+    default String xdag_getTotalBalance() throws Exception {
+        return getXdagModule().getTotalBalance();
+    }
+
+    default TransactionDTO xdag_getTransactionByHash(String hash, Boolean full)throws Exception{
+
+        return TransactionDTO.getTransactionDTO(hash,xdag_getBlockByHash(hash,full).getFlags());
+    }
+
+    default BlockResultDTO xdag_getBlockByNumber(String bnOrId, Boolean full) throws Exception {
+        return getXdagModule().getBlockByNumber(bnOrId,full);
+    }
 
     default String xdag_sendRawTransaction(String rawData) {
-        return getXdagModule().sendRawTransaction(rawData);
+        return getXdagModule().sendRawTransaction(rawData).getTransactionHash();
     }
 
     default String xdag_sendTransaction(Web3.CallArguments args) {
-        return getXdagModule().sendTransaction(args);
+        return getXdagModule().sendTransaction(args).getTransactionHash();
     }
 
-    BlockResultDTO xdag_getBlockByHash(String blockHash, Boolean full) throws Exception;
+    default BlockResultDTO xdag_getBlockByHash(String blockHash, Boolean full) throws Exception {
+        return getXdagModule().getBlockByHash(blockHash,full);
+    }
 
-    StatusDTO xdag_getStatus() throws Exception;
+    default StatusDTO xdag_getStatus() throws Exception {
+        return getXdagModule().getStatus();
+    }
 }

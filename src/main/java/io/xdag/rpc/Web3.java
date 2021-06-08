@@ -25,20 +25,19 @@ package io.xdag.rpc;
 
 import io.xdag.rpc.modules.web3.Web3XdagModule;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public interface Web3 extends Web3XdagModule {
     class CallArguments {
         public String from;
         public String to;
-//        public String gas;
-//        public String gasPrice;
+        public String gas;
+        public String gasPrice;
         public String value;
-//        public String data; // compiledCode
+        public String data; // compiledCode
         public String remark;
         public String netType;
-//        public String nonce;
+        public String nonce;
         public String chainId; //NOSONAR
 
         @Override
@@ -46,37 +45,14 @@ public interface Web3 extends Web3XdagModule {
             return "CallArguments{" +
                     "from='" + from + '\'' +
                     ", to='" + to + '\'' +
-//                    ", gasLimit='" + gas + '\'' +
-//                    ", gasPrice='" + gasPrice + '\'' +
+                    ", gasLimit='" + gas + '\'' +
+                    ", gasPrice='" + gasPrice + '\'' +
                     ", value='" + value + '\'' +
                     ", remark='" + remark + '\'' +
                     ", netType='" + netType + '\'' +
-//                    ", data='" + data + '\'' +
-//                    ", nonce='" + nonce + '\'' +
+                    ", data='" + data + '\'' +
+                    ", nonce='" + nonce + '\'' +
                     ", chainId='" + chainId + '\'' +
-                    '}';
-        }
-    }
-
-    class BlockInformationResult {
-        public String hash;
-        public String totalDifficulty;
-        public boolean inMainChain;
-    }
-
-    class FilterRequest {
-        public String fromBlock;
-        public String toBlock;
-        public Object address;
-        public Object[] topics;
-
-        @Override
-        public String toString() {
-            return "FilterRequest{" +
-                    "fromBlock='" + fromBlock + '\'' +
-                    ", toBlock='" + toBlock + '\'' +
-                    ", address=" + address +
-                    ", topics=" + Arrays.toString(topics) +
                     '}';
         }
     }

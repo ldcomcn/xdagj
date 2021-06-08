@@ -34,8 +34,6 @@ public class XdagModuleWalletDisabled implements XdagModuleWallet{
 
     private static final Logger logger = LoggerFactory.getLogger(XdagModuleWalletDisabled.class);
 
-
-
     @Override
     public String[] accounts() {
         String[] accounts = {};
@@ -45,7 +43,13 @@ public class XdagModuleWalletDisabled implements XdagModuleWallet{
 
     @Override
     public String sign(String addr, String data) {
-        logger.debug("eth_sign({}, {}): {}", addr, data, null);
+        logger.debug("xdag_sign({}, {}): {}", addr, data, null);
+        throw invalidParamError("Local wallet is disabled in this node");
+    }
+
+    @Override
+    public String getTotalBalance() {
+        logger.debug("xdag_totalbalance");
         throw invalidParamError("Local wallet is disabled in this node");
     }
 }

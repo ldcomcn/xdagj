@@ -28,4 +28,6 @@ public interface XdagModuleWallet {
     String[] accounts();
 
     String sign(String addr, String data);
+
+    String getTotalBalance();
 }

@@ -25,27 +25,69 @@ package io.xdag.rpc.dto;
 
 
 import io.xdag.core.Block;
+import io.xdag.utils.BytesUtils;
 import lombok.Data;
+import org.bouncycastle.util.encoders.Hex;
+
+import java.math.BigInteger;
+import java.util.Objects;
+
+import static io.xdag.rpc.utils.TypeConverter.*;
 
 @Data
 //TODO: Return xdagblock info
 public class BlockResultDTO {
 
-    // blockInfo
     // rawData
-    String height;
-    String data;
+    private String height;
+    // blockInfo
+    private String rawdata;
+    private String hash;
+    private String hashlow;
+    private String amount;
+    private String difficulty;
+    private String fee;
+    private String timestamp;
+    private String remark;
+    private String flags;
 
-    public BlockResultDTO(long height) {
-        this.height = Long.toHexString(height);
-        this.data = "0x";
+    // TODO: if block not found, what should we return?
+    public BlockResultDTO() {
+
+    }
+
+    public BlockResultDTO(String height, String hash, String hashlow, String amount, String difficulty, String fee, String timestamp, String remark, String rawdata, String flags) {
+        this.height = height;
+        this.hash = hash;
+        this.hashlow = hashlow;
+        this.amount = amount;
+        this.difficulty = difficulty;
+        this.fee = fee;
+        this.timestamp = timestamp;
+        this.remark = remark;
+        this.rawdata = rawdata;
+        this.flags = flags;
     }
 
 
 
-    public static BlockResultDTO fromBlock(Block b, boolean raw) {
-
-
-        return null;
+    public static BlockResultDTO fromBlock(Block block, boolean full) {
+        if (block == null) {
+            return new BlockResultDTO();
+        }
+        String height = block.getInfo().getHeight() == 0?"":toQuantityJsonHex(block.getInfo().getHeight());
+        String hash = toUnformattedJsonHex(block.getInfo().getHash());
+        String hashlow = toUnformattedJsonHex(block.getInfo().getHashlow());
+        String amount = toQuantityJsonHex(block.getInfo().getAmount());
+        String difficulty = toQuantityJsonHex(block.getInfo().getDifficulty());
+        String fee = toQuantityJsonHex(block.getInfo().getFee());
+        String timestamp = toQuantityJsonHex(block.getInfo().getTimestamp());
+        String remark = block.getInfo().getRemark() == null?"":new String(block.getInfo().getRemark());
+        String flags = Integer.toString(block.getInfo().getFlags());
+        String rawdata = "";
+        if (full) {
+            rawdata = BytesUtils.toHexString(block.getXdagBlock().getData());
+        }
+        return new BlockResultDTO(height,hash,hashlow,amount,difficulty,fee,timestamp,remark,rawdata,flags);
     }
 }
